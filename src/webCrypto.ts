@@ -18,7 +18,8 @@ export async function loadCrypto(): Promise<Crypto> {
   }
 
   try {
-    const { webcrypto } = await import("crypto"); // node:crypto
+    const dynamic = "crypto";
+    const { webcrypto } = await import(dynamic); // node:crypto
     return (webcrypto as unknown as Crypto);
   } catch (_e: unknown) {
     throw new errors.NotSupportedError("Web Cryptograph API not supported");
@@ -34,7 +35,8 @@ export async function loadSubtleCrypto(): Promise<SubtleCrypto> {
   }
 
   try {
-    const { webcrypto } = await import("crypto"); // node:crypto
+    const dynamic = "crypto";
+    const { webcrypto } = await import(dynamic); // node:crypto
     return (webcrypto as unknown as Crypto).subtle;
   } catch (_e: unknown) {
     throw new errors.NotSupportedError("Web Cryptograph API not supported");
