@@ -115,6 +115,20 @@ export class KemContext extends WebCrypto implements KemInterface {
     }
   }
 
+  public async serializePublicKey(kp: CryptoKeyPair): Promise<ArrayBuffer> {
+    return await this._prim.serializePublicKey(kp.publicKey);
+  }
+
+  public async deserializePublicKey(raw: ArrayBuffer): Promise<CryptoKey> {
+    let pke: CryptoKey;
+    try {
+      pke = await this._prim.deserializePublicKey(raw);
+    } catch (e: unknown) {
+      throw new errors.DeserializeError(e);
+    }
+    return pke;
+  }
+
   public async encap(
     params: SenderContextParams,
   ): Promise<{ sharedSecret: ArrayBuffer; enc: ArrayBuffer }> {

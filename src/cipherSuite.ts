@@ -195,6 +195,26 @@ export class CipherSuite {
   }
 
   /**
+   * Serializes a public key of a key pair.
+   *
+   * @returns An ArrayBuffer of the public key.
+   */
+  public async serializePublicKey(kp: CryptoKeyPair): Promise<ArrayBuffer> {
+    await this.setup();
+    return await (this._kem as KemContext).serializePublicKey(kp);
+  }
+
+  /**
+   * Deserializes a public key from an ArrayBuffer.
+   *
+   * @returns A CryptoKey public key.
+   */
+  public async deserializePublicKey(raw: ArrayBuffer): Promise<CryptoKey> {
+    await this.setup();
+    return await (this._kem as KemContext).deserializePublicKey(raw);
+  }
+
+  /**
    * Derives a key pair for the cipher suite in the manner
    * defined in [RFC9180 Section 7.1.3](https://www.rfc-editor.org/rfc/rfc9180.html#section-7.1.3).
    *
